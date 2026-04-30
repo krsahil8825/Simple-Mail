@@ -205,7 +205,7 @@ def handle_email_sending(name: str, email: str, message: str) -> None:
     # Send thank-you email to the submitter
     thank_you_subject = "Thank you for your message"
     thank_you_text = (
-        "Thank you for your message. I will contact you within 1 or 2 business days."
+        "Thank you for your message. I will contact you within 1 or 2 business days. Have a great day!"
     )
 
     send_email(
