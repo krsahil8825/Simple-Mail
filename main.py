@@ -83,7 +83,8 @@ app.state.limiter = limiter
 app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[f"http://{host}" for host in ALLOWED_HOSTS],
+    allow_origins=[f"http://{host}" for host in ALLOWED_HOSTS]
+    + [f"https://{host}" for host in ALLOWED_HOSTS],
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
