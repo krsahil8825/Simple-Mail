@@ -1,12 +1,12 @@
 # Simple Mail
 
-A clean, production-minded FastAPI service for handling contact-form submissions and sending them through SMTP with an HTML email template.
+A clean, production-minded FastAPI service for handling contact-form submissions and sending them through SMTP with HTML email templates.
 
 Built for a simple workflow:
 
 - validate incoming form data with Pydantic
 - protect the endpoint with origin checks and rate limiting
-- render a polished HTML email with Jinja2
+- render polished HTML emails with Jinja2
 - deliver mail through your SMTP provider
 
 ## Features
@@ -14,6 +14,7 @@ Built for a simple workflow:
 - FastAPI endpoint for form submissions
 - SMTP-based email delivery with `EmailMessage`
 - HTML email rendering via Jinja2
+- Two email flows: an internal notification and a thank-you email to the submitter
 - Input validation with Pydantic v2
 - Origin / referer allowlist protection
 - Rate limiting with SlowAPI
@@ -75,6 +76,7 @@ SMTP_HOST=smtp.example.com
 SMTP_PORT=587
 SMTP_USER=your-smtp-username@example.com
 SMTP_PASSWORD=your-smtp-password
+SMTP_EMAIL=your-smtp-email@example.com
 ```
 
 ### Environment Variables
@@ -86,6 +88,7 @@ SMTP_PASSWORD=your-smtp-password
 - `SMTP_PORT`: SMTP server port, usually `587`
 - `SMTP_USER`: SMTP login username
 - `SMTP_PASSWORD`: SMTP login password
+- `SMTP_EMAIL`: The "from" email address used when sending emails
 
 ## Running the App
 
@@ -141,6 +144,7 @@ curl -X POST http://127.0.0.1:8000/submit-form \
 #### Common Error Responses
 
 - `403 Forbidden`: The request origin is not allowed
+- `422 Unprocessable Entity`: Validation error
 - `429 Too Many Requests`: Rate limit exceeded
 - `500 Internal Server Error`: SMTP delivery failed
 
@@ -171,9 +175,9 @@ curl -X POST http://127.0.0.1:8000/submit-form \
 
 ## Development Notes
 
-- The email template is stored in `templates/email_template.html`.
+- The email templates are stored in `templates/email_template.html` and `templates/thank_you_template.html`.
 - SMTP connection uses STARTTLS and logs in before sending mail.
-- The app currently exposes a single public form-submission endpoint.
+- The app currently exposes a single public form-submission endpoint that triggers both emails.
 
 ## License
 
