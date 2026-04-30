@@ -37,6 +37,32 @@ uv sync
 
 If you want to run the app in an isolated environment managed by `uv`, this command is enough to create and sync the environment from `pyproject.toml`.
 
+## Deployment
+
+### Build
+
+If you want to build a standalone environment for deployment, run:
+
+If uv is not installed globally, you can install it first and then sync the environment:
+
+```bash
+pip install uv && uv sync
+```
+
+if uv is already installed, you can directly sync the environment:
+
+```bash
+uv sync
+```
+
+### Run
+
+Start the server with:
+
+```bash
+uv run uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
 ## Configuration
 
 Create a `.env` file in the project root with the following variables:
