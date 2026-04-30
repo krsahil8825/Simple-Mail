@@ -1,6 +1,11 @@
 from dotenv import load_dotenv
+from email.message import EmailMessage
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from html import escape
+from jinja2 import Template
+from pathlib import Path
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
@@ -8,12 +13,8 @@ from slowapi.middleware import SlowAPIMiddleware
 from slowapi.util import get_remote_address
 from urllib.parse import urlparse
 import smtplib
-from email.message import EmailMessage
-from html import escape
-from pathlib import Path
 import os
 import logging
-from jinja2 import Template
 
 # =========================
 # Load environment variables
@@ -70,6 +71,14 @@ app = FastAPI(
 
 app.state.limiter = limiter
 app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[f"http://{host}" for host in ALLOWED_HOSTS],
+    allow_methods=["*"], 
+    allow_headers=["*"],
+    allow_credentials=True,
+)
+
 
 
 # =========================
