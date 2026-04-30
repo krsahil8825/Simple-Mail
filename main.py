@@ -51,12 +51,21 @@ SMTP_HOST = os.getenv("SMTP_HOST")
 SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+SMTP_EMAIL = os.getenv("SMTP_EMAIL", SMTP_USER)
 
 # =========================
 # Validate Config
 # =========================
 if not all(
-    [SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, RECIPIENT_EMAIL, ALLOWED_HOSTS]
+    [
+        SMTP_HOST,
+        SMTP_PORT,
+        SMTP_USER,
+        SMTP_PASSWORD,
+        RECIPIENT_EMAIL,
+        ALLOWED_HOSTS,
+        SMTP_EMAIL,
+    ]
 ):
     raise ValueError("SMTP configuration missing")
 
@@ -74,11 +83,10 @@ app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[f"http://{host}" for host in ALLOWED_HOSTS],
-    allow_methods=["*"], 
+    allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
 )
-
 
 
 # =========================
@@ -136,7 +144,7 @@ def send_email(name: str, email: str, message: str) -> dict:
 
         safe_subject_name = name.replace("\n", "").replace("\r", "")
         msg["Subject"] = f"New Form Submission from {safe_subject_name}"
-        msg["From"] = SMTP_USER
+        msg["From"] = SMTP_EMAIL
         msg["To"] = RECIPIENT_EMAIL
         msg["Reply-To"] = email
 
