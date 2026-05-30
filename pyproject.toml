@@ -1,9 +1,17 @@
 [project]
 name = "simple-mail"
 version = "0.1.0"
-description = "Add your description here"
+description = "A lightweight FastAPI-based contact form backend that sends emails via SMTP with rate limiting, origin validation, and HTML templating."
 readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.14"
+
+authors = [
+    { name = "Kumar Sahil", email = "krsahil8825@gmail.com" }
+]
+
+keywords = ["fastapi", "smtp", "email", "contact-form", "rate-limiting"]
+
 dependencies = [
     "fastapi>=0.136.1",
     "pydantic>=2.13.3",
@@ -13,3 +21,6 @@ dependencies = [
     "slowapi>=0.1.9",
     "jinja2>=3.1.6",
 ]
+
+[project.urls]
+Repository = "https://github.com/krsahil8825/simple-mail"

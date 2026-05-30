@@ -61,7 +61,7 @@ uv sync
 Start the server with:
 
 ```bash
-uv run uvicorn main:app --host 0.0.0.0 --port 8000
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 ## Configuration
@@ -95,7 +95,7 @@ SMTP_EMAIL=your-smtp-email@example.com
 Start the development server with `uv`:
 
 ```bash
-uv run uvicorn main:app --reload
+uv run uvicorn app.main:app --reload
 ```
 
 The API will usually be available at:
