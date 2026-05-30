@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Request
 import logging
-from app.config import RATE_LIMIT
+from app.config import RATE_LIMIT, DEBUG
 from app.schemas.form import Form, ContactForm
 from app.services.email import handle_email_sending
 from app.utils.security import is_allowed_origin
@@ -17,7 +17,7 @@ router = APIRouter()
 @router.post("/submit-form")
 @limiter.limit(RATE_LIMIT)
 async def submit_form(form: Form, request: Request):
-    if not is_allowed_origin(request):
+    if not DEBUG and not is_allowed_origin(request):
         logger.warning(f"Blocked request from {request.client.host}")
         raise HTTPException(status_code=403, detail="Origin not allowed")
 
@@ -33,7 +33,7 @@ async def submit_form(form: Form, request: Request):
 @router.post("/contact")
 @limiter.limit(RATE_LIMIT)
 async def contact_form(form: ContactForm, request: Request):
-    if not is_allowed_origin(request):
+    if not DEBUG and not is_allowed_origin(request):
         logger.warning(f"Blocked request from {request.client.host}")
         raise HTTPException(status_code=403, detail="Origin not allowed")
 
