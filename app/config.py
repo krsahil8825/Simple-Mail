@@ -27,6 +27,9 @@ SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 SMTP_EMAIL = os.getenv("SMTP_EMAIL", SMTP_USER)
 
+# rate limit config
+RATE_LIMIT = os.getenv("RATE_LIMIT", "5/minute")
+
 # =========================
 # Validate Config
 # =========================

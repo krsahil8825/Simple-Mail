@@ -13,3 +13,6 @@ class Form(BaseModel):
     @classmethod
     def strip_fields(cls, v: str):
         return v.strip()
+
+class ContactForm(Form):
+    purpose: str = Field(..., min_length=1, max_length=100)

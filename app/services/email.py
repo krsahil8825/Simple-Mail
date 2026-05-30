@@ -1,6 +1,7 @@
 from email.message import EmailMessage
 from html import escape
 from jinja2 import Template
+from markupsafe import Markup
 from typing import Optional, Dict
 from pathlib import Path
 import smtplib
@@ -53,8 +54,13 @@ def send_email(
             template = Template(template_path.read_text(encoding="utf-8"))
             ctx = template_ctx or {}
 
-            # Escape all context values to prevent XSS injection
-            safe_ctx = {k: escape(str(v)) for k, v in ctx.items()}
+            safe_ctx = {}
+
+            for k, v in ctx.items():
+                if k == "message":
+                    safe_ctx[k] = Markup(escape(str(v)).replace("\n", "<br>"))
+                else:
+                    safe_ctx[k] = escape(str(v))
 
             html_body = template.render(**safe_ctx)
             msg.add_alternative(html_body, subtype="html")
@@ -88,7 +94,7 @@ def handle_email_sending(name: str, email: str, message: str) -> None:
         template_ctx={
             "name": name,
             "email": email,
-            "message": message.replace("\n", "<br>"),
+            "message": message,
         },
         reply_to=email,
     )
@@ -102,5 +108,8 @@ def handle_email_sending(name: str, email: str, message: str) -> None:
         to_email=email,
         plain_text=thank_you_text,
         template_name="thank_you_template.html",
-        template_ctx={"name": name, "message": thank_you_text},
+        template_ctx={
+            "name": name,
+            "message": thank_you_text,
+        },
     )
