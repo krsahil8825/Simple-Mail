@@ -15,4 +15,4 @@ class Form(BaseModel):
         return v.strip()
 
 class ContactForm(Form):
-    purpose: str = Field(..., min_length=1, max_length=100)
+    purpose: str = Field(..., min_length=1, max_length=200)
