@@ -1,30 +1,271 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Thank You - Kumar Sahil</title>
+    <style>
+      /* Reset */
+      * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thank You</title>
-    </head>
+      body {
+        background-color: #f0f2f5;
+        font-family: "Inter", Arial, Helvetica, sans-serif;
+        color: #0f172a;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
 
-    <body style="margin:0;padding:0;background-color:#f4f7fb;font-family:Arial,Helvetica,sans-serif;color:#1f2937;">
-        <div style="max-width:640px;margin:0 auto;padding:32px 16px;">
-            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
-                <div style="background:linear-gradient(135deg,#0f172a,#2563eb);padding:20px 24px;color:#ffffff;">
-                    <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.85;">Contact Form</div>
-                    <h1 style="margin:8px 0 0;font-size:22px;line-height:1.2;">Thank you for contacting Me</h1>
-                </div>
+      /* Wrapper */
+      .wrapper {
+        width: 100%;
+        /* padding: 48px 16px; */
+        background-color: #f0f2f5;
+      }
 
-                <div style="padding:24px 28px;color:#111827;font-size:16px;line-height:1.7;">
-                    <p style="margin:0 0 12px;">Hi {{ name }},</p>
-                    <p style="margin:0 0 18px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:16px;">{{ message_text }}</p>
-                    <p style="margin:18px 0 0;">Best regards,<br />Kumar Sahil</p>
-                </div>
+      /* Card */
+      .card {
+        max-width: 580px;
+        width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Header */
+      .header {
+        background-color: #0f172a;
+        padding: 36px 40px 32px;
+      }
+
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #1e3a5f;
+        border-radius: 4px;
+        padding: 3px 10px;
+        margin-bottom: 14px;
+        font-family: "Inter", Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #94a3b8;
+      }
+
+      .header-title {
+        font-family: "Inter", Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: #f8fafc;
+        line-height: 1.35;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* Accent bar */
+      .accent-bar {
+        height: 2px;
+        background: linear-gradient(90deg, #4648d4 0%, #2563eb 50%, #0f172a 100%);
+        font-size: 0;
+        line-height: 0;
+      }
+
+      /* Body */
+      .body {
+        padding: 36px 40px 0;
+      }
+
+      .greeting {
+        font-size: 16px;
+        color: #0f172a;
+        line-height: 1.7;
+        margin-bottom: 24px;
+      }
+
+      /* Quoted message box */
+      .msg-box {
+        border-left: 3px solid #4648d4;
+        padding: 16px 20px;
+        background: #f8fafc;
+        border-radius: 0 6px 6px 0;
+        margin-bottom: 28px;
+      }
+
+      .msg-box p {
+        font-size: 15px;
+        color: #1e293b;
+        line-height: 1.8;
+      }
+
+      .body-note {
+        font-size: 15px;
+        color: #0f172a;
+        line-height: 1.7;
+        padding-bottom: 36px;
+      }
+
+      /* CTA */
+      .cta-wrap {
+        padding: 0 40px 36px;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background: #4648d4;
+        border-radius: 6px;
+        padding: 11px 22px;
+        font-family: "Inter", Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: #ffffff;
+        text-decoration: none;
+        letter-spacing: 0.03em;
+      }
+
+      /* Signature */
+      .sig-wrap {
+        padding: 0 40px 32px;
+        border-top: 1px solid #e2e8f0;
+        margin: 0 40px;
+        padding-top: 24px;
+      }
+
+      .sig-regards {
+        font-size: 14px;
+        color: #64748b;
+        margin-bottom: 4px;
+      }
+
+      .sig-name {
+        font-size: 17px;
+        font-weight: 700;
+        color: #4648d4;
+        margin-bottom: 6px;
+      }
+
+      .sig-links {
+        font-size: 12px;
+        color: #94a3b8;
+      }
+
+      .sig-links a {
+        color: #94a3b8;
+        text-decoration: none;
+      }
+
+      .sig-dot {
+        margin: 0 6px;
+        color: #cbd5e1;
+      }
+
+      /* Footer */
+      .footer {
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        padding: 16px 40px;
+        text-align: center;
+      }
+
+      .footer p {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.6;
+      }
+
+      .footer a {
+        color: #4648d4;
+        text-decoration: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 620px) {
+        .header { padding: 28px 24px 24px; }
+        .body { padding: 28px 24px 0; }
+        .cta-wrap { padding: 0 24px 28px; }
+        .sig-wrap { margin: 0 24px; }
+        .footer { padding: 14px 24px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="card">
+
+        <!-- Header -->
+        <div class="header">
+          <div class="header-inner">
+            <div>
+              <div class="badge">Kumar Sahil</div>
+              <div class="header-title">Thank you for reaching out.</div>
             </div>
-
-            <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;" />
-            <p style="margin:12px 0 0;text-align:center;font-size:12px;color:#94a3b8;">Visit my website: <a href="https://krsahil.co.in" target="_blank" style="color:#2563eb;text-decoration:underline;">krsahil.co.in</a></p>
+            <img
+              src="https://krsahil.co.in/site/favicon.png"
+              alt="KS"
+              class="logo"
+            />
+          </div>
         </div>
-    </body>
 
+        <!-- Accent bar -->
+        <div class="accent-bar"></div>
+
+        <!-- Body -->
+        <div class="body">
+          <p class="greeting">Hi {{ name }},</p>
+
+          <div class="msg-box">
+            <p>{{ message_text }}</p>
+          </div>
+
+          <p class="body-note">
+            I appreciate you taking the time to get in touch. I'll review your message and get back to you shortly - usually within 1-2 business days.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-wrap">
+          <a href="https://krsahil.co.in" class="cta-btn">Visit krsahil.co.in →</a>
+        </div>
+
+        <!-- Signature -->
+        <div class="sig-wrap">
+          <p class="sig-regards">Best regards,</p>
+          <p class="sig-name">Kumar Sahil</p>
+          <p class="sig-links">
+            <a href="https://krsahil.co.in">krsahil.co.in</a>
+            <span class="sig-dot">·</span>
+            <a href="mailto:contact@krsahil.co.in">contact@krsahil.co.in</a>
+          </p>
+        </div>
+
+        <!-- Spacer -->
+        <div style="height: 28px;"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            You received this because you submitted the contact form at
+            <a href="https://krsahil.co.in">krsahil.co.in</a>.
+            If this wasn't you, please disregard this email.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </body>
 </html>
