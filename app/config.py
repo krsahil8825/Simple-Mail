@@ -37,7 +37,6 @@ if not all(
         SMTP_USER,
         SMTP_PASSWORD,
         RECIPIENT_EMAIL,
-        ALLOWED_HOSTS,
         SMTP_EMAIL,
     ]
 ):

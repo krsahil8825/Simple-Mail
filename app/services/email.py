@@ -35,11 +35,16 @@ def send_email(
     """
     try:
         msg = EmailMessage()
-        msg["Subject"] = subject
+
+        # Basic header sanitization to prevent header injection
+        def _sanitize_header(v: str) -> str:
+            return v.replace("\r", "").replace("\n", "").strip()
+
         msg["From"] = SMTP_EMAIL
-        msg["To"] = to_email
+        msg["Subject"] = _sanitize_header(subject)
+        msg["To"] = _sanitize_header(to_email)
         if reply_to:
-            msg["Reply-To"] = reply_to
+            msg["Reply-To"] = _sanitize_header(reply_to)
 
         msg.set_content(plain_text)
 
@@ -97,5 +102,5 @@ def handle_email_sending(name: str, email: str, message: str) -> None:
         to_email=email,
         plain_text=thank_you_text,
         template_name="thank_you_template.html",
-        template_ctx={"name": name, "message_text": thank_you_text},
+        template_ctx={"name": name, "message": thank_you_text},
     )
